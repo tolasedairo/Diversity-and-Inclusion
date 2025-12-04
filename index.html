@@ -268,6 +268,20 @@
       .footer-brand { justify-content:center; }
     }
     /* --- end enhanced footer styles --- */
+
+    /* Enquiries image column: make image match the form height on md+ */
+    #enquiries .card .row { align-items: stretch; }
+    #enquiries .img-col { padding: 0; } /* remove column padding so image fills */
+    #enquiries .form-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* small screens: allow image to flow above the form with natural height */
+    @media (max-width: 767.98px) {
+      #enquiries .form-image { height: auto; }
+    }
     </style>
 </head>
 
@@ -292,7 +306,7 @@
                         <a class="nav-link" href="#information">Information</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Take Action</a>
+                        <a class="nav-link" href="#enquiries">Enquiries</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
@@ -409,35 +423,68 @@
       </section>
 
       <!-- Building Understanding section (wide card with image on left on md+) -->
-      <section id="building" class="mb-5">
-        <h2 class="mb-4">Building Understanding</h2>
+      <section id="enquiries" class="mb-5">
+        <h2 class="mb-4 text-center">Enquiries</h2>
         <div class="card shadow-sm">
-          <div class="row g-0 align-items-center">
-            <div class="col-12 col-md-4">
-              <img
-                src="https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=896997035761160"
-                class="img-fluid rounded-start"
-                alt="People collaborating"
-                style="object-fit:cover; height:100%; width:100%;"
-                loading="lazy" decoding="async"
-                onerror="this.onerror=null;this.src='assets/images/placeholder.png';this.classList.add('img-placeholder');"
-              />
+          <div class="row g-0">
+            <!-- image column: use project image assets/images/form.png; fills same height as form on md+ -->
+            <div class="col-12 col-md-4 img-col">
+              <img src="assets/images/form.png"
+                   alt="Enquiry illustration"
+                   class="form-image"
+                   loading="lazy"
+                   decoding="async"
+                   onerror="this.onerror=null;this.src='assets/images/placeholder.png';" />
             </div>
-            <div class="col-12 col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">Building Understanding</h5>
-                <p class="card-text">
-                  Building understanding of inclusion and diversity starts with education, open communication, and self-awareness.
-                  By listening to others, challenging personal biases, and promoting inclusive practices, we can create environments
-                  where everyone feels valued, respected, and able to contribute fully.
-                </p>
-                <a href="https://en.wikipedia.org/wiki/Diversity,_equity,_and_inclusion" class="btn btn-primary">Learn more</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
+            <!-- form column (right on md+, below on small) -->
+            <div class="col-12 col-md-8 p-4">
+               <!-- success alert toggled by script -->
+               <div id="enquirySuccess" class="alert alert-success d-none" role="status" aria-live="polite">
+                 Thank you — your message has been sent.
+               </div>
+ 
+               <form id="enquiryForm" method="post" action="#" class="needs-validation" novalidate>
+                 <div class="row g-3">
+                   <div class="col-12 col-md-6">
+                     <label for="enqName" class="form-label">Full name</label>
+                     <input id="enqName" name="name" type="text" class="form-control" placeholder="Your full name" required>
+                     <div class="invalid-feedback">Please enter your name.</div>
+                   </div>
+ 
+                   <div class="col-12 col-md-6">
+                     <label for="enqEmail" class="form-label">Email</label>
+                     <input id="enqEmail" name="email" type="email" class="form-control" placeholder="name@domain.com" required>
+                     <div class="invalid-feedback">Please enter a valid email address.</div>
+                   </div>
+ 
+                   <div class="col-12 col-md-6">
+                     <label for="enqPhone" class="form-label">Phone (optional)</label>
+                     <input id="enqPhone" name="phone" type="tel" class="form-control" placeholder="+1 (555) 555-5555" pattern="[\d\+\-\s\(\)]{7,}">
+                     <div class="invalid-feedback">Please enter a valid phone number or leave blank.</div>
+                   </div>
+ 
+                   <div class="col-12 col-md-6">
+                     <label for="enqSubject" class="form-label">Subject</label>
+                     <input id="enqSubject" name="subject" type="text" class="form-control" placeholder="Subject" required>
+                     <div class="invalid-feedback">Please enter a subject.</div>
+                   </div>
+ 
+                   <div class="col-12">
+                     <label for="enqMessage" class="form-label">Message</label>
+                     <textarea id="enqMessage" name="message" rows="5" class="form-control" placeholder="Write your message..." required></textarea>
+                     <div class="invalid-feedback">Please enter a message.</div>
+                   </div>
+ 
+                   <div class="col-12 d-flex justify-content-center">
+                     <button type="submit" class="btn btn-primary">Send enquiry</button>
+                   </div>
+                 </div>
+               </form>
+             </div>
+           </div>
+         </div>
+       </section>
     </main>
 
     <!-- CONTACT / FOOTER (reverted to simple, clean white footer) -->
@@ -470,8 +517,8 @@
             <!-- center: newsletter + copyright -->
             <div class="footer-col">
               <div class="newsletter">
-                <input aria-label="Email for updates" type="email" placeholder="Stay updated — enter your email">
-                <button class="btn" type="button">Subscribe</button>
+                <input id="subscribeEmail" aria-label="Email for updates" type="email" placeholder="Stay updated — enter your email" required>
+                <button id="subscribeBtn" class="btn" type="button">Subscribe</button>
               </div>
               <div class="mt-3 footer-copy">
                 <small>&copy; 2025 Diversity & Inclusion. All rights reserved.</small>
@@ -525,6 +572,43 @@
            targetEl.focus({ preventScroll: true });
          });
        });
+
+       // Enquiry form handling: validate, show prompt and success banner
+       var enquiryForm = document.getElementById('enquiryForm');
+       if (enquiryForm) {
+         enquiryForm.addEventListener('submit', function (ev) {
+           ev.preventDefault();
+           // native validity check + report; prevents submit if invalid
+           if (!enquiryForm.checkValidity()) {
+             enquiryForm.reportValidity();
+             return;
+           }
+           // show inline success banner
+           var success = document.getElementById('enquirySuccess');
+           success.classList.remove('d-none');
+           // also prompt user (browser alert) to confirm send
+           try { window.alert('Your enquiry has been sent. We will respond shortly.'); } catch (e) { /* ignore */ }
+           // reset form after brief delay
+           setTimeout(function () { enquiryForm.reset(); }, 300);
+           // auto-hide success after 5s
+           setTimeout(function () { success.classList.add('d-none'); }, 5000);
+         }, false);
+       }
+
+       // Footer subscribe button: simple client-side validation + matching UX (centered)
+       var subscribeBtn = document.getElementById('subscribeBtn');
+       if (subscribeBtn) {
+         subscribeBtn.addEventListener('click', function () {
+           var emailInput = document.getElementById('subscribeEmail');
+           if (!emailInput) return;
+           if (!emailInput.checkValidity()) {
+             emailInput.reportValidity();
+             return;
+           }
+           try { window.alert('Thanks — your subscription request has been received.'); } catch (e) {}
+           emailInput.value = '';
+         });
+       }
      })();
    </script>
 </body>
