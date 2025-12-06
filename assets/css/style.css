@@ -22,23 +22,41 @@
 
     /* target the class used in the HTML and add overlay + responsive sizing */
     .hero-section {
-        /* overlay for readable text */
-        background-image:
-            linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-            url('../images/hero.png');
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-        background-attachment: scroll;
+        position: relative;
+        overflow: hidden;
         color: white;
-        /* responsive padding and minimum height for good hero presence */
         padding: clamp(3rem, 10vw, 8rem) 0;
         min-height: 60vh;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         text-align: center;
+        background: #1c0f2f; /* fallback behind carousel */
+    }
+    .hero-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.35));
+        z-index: 1; /* overlay for readability */
+    }
+    .hero-carousel {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+    }
+    .hero-carousel .carousel-item,
+    .hero-carousel .carousel-item img {
+        height: 100%;
+    }
+    .hero-carousel .carousel-item img {
+        object-fit: cover;
+        filter: saturate(1.05);
+        opacity: 0.55; /* transparency so text stays legible */
+    }
+    .hero-content {
+        position: relative;
+        z-index: 2;
     }
 
     /* Center the Information h2 */
@@ -237,8 +255,27 @@
 
     /* social */
     .footer-social { display:flex; justify-content:flex-end; gap:.5rem; align-items:center; }
-    .social-link { width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center; border-radius:8px; color:var(--brand); background:transparent; border:1px solid rgba(11,18,39,0.04); transition:all .18s ease; }
-    .social-link:hover { transform:translateY(-4px); color:#fff; background:var(--brand-dark); box-shadow: 0 8px 30px rgba(87,38,148,0.12); text-decoration:none; }
+    .social-link {
+      width:52px;
+      height:52px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:10px;
+      color:var(--brand);
+      background:rgba(107,47,181,0.05);
+      border:1px solid rgba(107,47,181,0.12);
+      box-shadow: 0 6px 16px rgba(87,38,148,0.12); /* subtle base shadow */
+      transition:all .18s ease;
+      font-size:1.3rem;
+    }
+    .social-link:hover {
+      transform:translateY(-4px) scale(1.05);
+      color:#fff;
+      background:var(--brand-dark);
+      box-shadow: 0 10px 28px rgba(87,38,148,0.22); /* stronger hover shadow */
+      text-decoration:none;
+    }
 
     .footer-copy { text-align:center; color:#7b7890; }
 
