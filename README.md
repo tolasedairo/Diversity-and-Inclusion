@@ -41,5 +41,30 @@ A simple, responsive static website promoting diversity and inclusion. Built wit
 - Smooth scroll links focus the target element for keyboard users.
 - Ensure alt text for images is meaningful when replacing assets.
 
+## Credits & AI Assistance
+
+This project was developed with significant assistance from **GitHub Copilot** (powered by Claude Sonnet 4.5).
+
+### Extent of AI Usage
+AI assistance was used extensively throughout the development process for:
+
+- **CSS Architecture & Styling**: Generation of responsive layouts, custom CSS variables, card hover effects, gradient backgrounds, and footer styling
+- **JavaScript Functionality**: Implementation of smooth scrolling, form validation logic, success notifications, and navbar collapse behavior
+- **Responsive Design**: Media queries and Bootstrap grid customization for mobile-first responsiveness
+- **Accessibility Features**: ARIA labels, keyboard navigation enhancements, and semantic HTML structure
+- **Code Organization**: Structuring the HTML document, organizing CSS rules, and implementing best practices
+- **Documentation**: Writing inline code comments and this README file
+
+### Why AI Assistance Was Crucial
+
+1. **Rapid Prototyping**: AI assistance enabled quick iteration on design concepts and UI components, allowing for faster development cycles
+2. **Best Practices**: Ensured adherence to modern web standards, accessibility guidelines (WCAG), and responsive design principles
+3. **Cross-browser Compatibility**: Generated CSS that works consistently across different browsers and devices
+4. **Problem Solving**: Provided solutions for complex CSS layouts (like matching card heights and image aspect ratios) and JavaScript event handling
+5. **Code Quality**: Maintained clean, well-structured, and maintainable code with proper naming conventions and organization
+
+### Human Contribution
+While AI provided significant technical assistance, all creative direction, content decisions, brand identity, design preferences, and final approval of code came from human judgment. The AI served as a coding assistant and knowledge resource, not the decision maker.
+
 ## Contribution & License
 This is a simple static template. Use, modify and extend as needed. Add a license file if you intend to publish.
