@@ -1,4 +1,4 @@
-# Diversity & Inclusion — Static Site
+# Diversity & Inclusion
 
 A simple, responsive static website promoting diversity and inclusion. Built with semantic HTML + Bootstrap 5 and lightweight vanilla JS for form validation, smooth scrolling and UI interactions.
 
@@ -19,7 +19,7 @@ A simple, responsive static website promoting diversity and inclusion. Built wit
 - index.html — main page (hero, information cards, enquiries form, footer)
 - assets/
   - images/ — logo.png, favicon.png, form.png, placeholder.png, etc.
-  - site.webmanifest (optional)
+
 - (No server required for the current frontend behaviour)
 
 ## Enquiries form
@@ -49,10 +49,15 @@ This project was developed with significant assistance from **GitHub Copilot** (
 AI assistance was used extensively throughout the development process for:
 
 - **CSS Architecture & Styling**: Generation of responsive layouts, custom CSS variables, card hover effects, gradient backgrounds, and footer styling
+
 - **JavaScript Functionality**: Implementation of smooth scrolling, form validation logic, success notifications, and navbar collapse behavior
+
 - **Responsive Design**: Media queries and Bootstrap grid customization for mobile-first responsiveness
+
 - **Accessibility Features**: ARIA labels, keyboard navigation enhancements, and semantic HTML structure
+
 - **Code Organization**: Structuring the HTML document, organizing CSS rules, and implementing best practices
+
 - **Documentation**: Writing inline code comments and this README file
 
 ### Why AI Assistance Was Crucial
